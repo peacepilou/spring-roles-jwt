@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,11 @@ public class UserserviceApplication {
 		SpringApplication.run(UserserviceApplication.class, args);
 	}
 
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	// Tout ce qu'il y a dans les {} sera .run() après que l'application soit initialisée
 	@Bean
 	CommandLineRunner run(UserService userService) {
@@ -34,8 +41,11 @@ public class UserserviceApplication {
 
 			userService.addRoleToUser("john", "ROLE_USER");
 			userService.addRoleToUser("john", "ROLE_MANAGER");
+
 			userService.addRoleToUser("will", "ROLE_MANAGER");
+
 			userService.addRoleToUser("jim", "ROLE_ADMIN");
+
 			userService.addRoleToUser("arnold", "ROLE_SUPER_ADMIN");
 			userService.addRoleToUser("arnold", "ROLE_ADMIN");
 			userService.addRoleToUser("arnold", "ROLE_USER");
